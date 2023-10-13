@@ -39,3 +39,36 @@ def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
     return dummy.next
 
 
+#143. reorder list. Find middle using slow and fast pointers, reverse second half, then merge
+def reorderList(self, head: Optional[ListNode]) -> None:
+    """
+    Do not return anything, modify head in-place instead.
+    """
+
+    # find middle.
+    s, f = head, head.next
+    while f and f.next:
+        s = s.next
+        f = f.next.next
+    
+    # reverse second half. Lotta pointers here
+    second = s.next
+    s.next = prev = None
+    while second:
+        tmp = second.next
+        second.next = prev
+        prev = second
+        second = tmp
+
+    first, second = head, prev
+
+    # merge
+    while first and second:
+        temp = first.next
+        first.next = second
+        second = temp
+        first = first.next
+
+
+
+
