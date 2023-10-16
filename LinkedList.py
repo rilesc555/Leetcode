@@ -69,6 +69,24 @@ def reorderList(self, head: Optional[ListNode]) -> None:
         second = temp
         first = first.next
 
+#remove nth node from end of list. Separate 2 pointers by n nodes, then move both until end of list, and remove left pointer
+def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        dummy = ListNode(0, head)
+        l = dummy
+        r = head
+        while n > 0:
+            r = r.next
+            n -= 1
+        
+        while r:
+            l = l.next
+            r = r.next
+
+        l.next = l.next.next
+
+        return dummy.next
+
+
 
 
 
