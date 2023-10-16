@@ -6,6 +6,12 @@ class ListNode:
         self.val = val
         self.next = next
 
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+
 def reverseList(self, head: ListNode) -> ListNode:
     prev, curr = None, head
 
@@ -86,7 +92,49 @@ def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
 
         return dummy.next
 
+# deep copy of list with pointers to next and to random node
+def copyRandomList(self, head: Node) -> Node:
+        oldToCopy = {None : None}
+
+        cur = head
+        while cur:
+            copy = Node(cur.val)
+            oldToCopy[cur] = copy
+            cur = cur.next
 
 
+        cur = head
+        while cur:
+            copy = oldToCopy[cur]
+            copy.next = oldToCopy[cur.next]
+            copy.random = oldToCopy[cur.random]
+            cur = cur.next
 
+        return oldToCopy[head]
+
+# 2. add two numbers. Add each digit, keep track of remainder. Return new list with dummy head. Easy Stuff
+def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        cur1 = l1
+        cur2 = l2
+        result = dummy = ListNode()
+        multiplier = 1
+        remainder = 0
+        while cur1 or cur2:
+            temp = 0
+            if cur1:
+                temp += cur1.val
+                cur1 = cur1.next
+            if cur2:
+                temp += cur2.val
+                cur2 = cur2.next
+            temp += remainder
+            result.next = ListNode(temp % 10, None)
+            result = result.next
+            remainder = temp // 10
+
+        if remainder:
+            result.next = ListNode(remainder, None)
+
+        return dummy.next
+            
 
