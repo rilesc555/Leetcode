@@ -136,5 +136,21 @@ def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optio
             result.next = ListNode(remainder, None)
 
         return dummy.next
+
+# 141. Linked List Cycle. 2 pointers, one moves 2 at a time, one moves 1 at a time. If they meet, there is a cycle
+def hasCycle(self, head: Optional[ListNode]) -> bool:
+        s = f = head
+        while f:
+            s = s.next
+            f = f.next
+
+            if f:
+                f = f.next
+            else:
+                return False
+            
+            if s == f:
+                return True
+
             
 
