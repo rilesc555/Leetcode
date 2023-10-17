@@ -153,7 +153,8 @@ def hasCycle(self, head: Optional[ListNode]) -> bool:
                 return True
             
 
-# 287. find duplicate number. 2 pointers, one moves 1 at a time, one moves 2 at a time. When they meet, move one back to start, and move both 1 at a time. When they meet, that is the duplicate. 
+# 287. find duplicate number in list with n elements and range 0 to n-1 with only 1 duplicate.
+# 2 pointers, one moves 1 at a time, one moves 2 at a time. When they meet, move one back to start, and move both 1 at a time. When they meet, that is the duplicate. 
 # Floyd's cycle detection algorithm. Just have to know it            
 def findDuplicate(self, nums: list[int]) -> int:
     slow = fast = 0
