@@ -137,7 +137,7 @@ def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optio
 
         return dummy.next
 
-# 141. Linked List Cycle. 2 pointers, one moves 2 at a time, one moves 1 at a time. If they meet, there is a cycle
+# 141. Linked List Cycle. 2 pointers, one moves 2 at a time, one moves 1 at a time. If they meet, there is a cycle. If fast pointer reaches end, there is no cycle
 def hasCycle(self, head: Optional[ListNode]) -> bool:
         s = f = head
         while f:
@@ -173,5 +173,21 @@ def findDuplicate(self, nums: list[int]) -> int:
     return slow
 
 
+
+
+
+# 23. Merge K sorted lists. Uses Merge 2 sorted lists function from prob 21. Merge 2 lists at a time, until there is only 1 list left. Rather proud of this one.
+def mergeKLists(self, lists: list[ListNode]) -> ListNode:
+    if not lists or len(lists) == 0:
+        return None
+    while len(lists) > 1:
+        i = 0
+        while i < (len(lists) - 1):
+            lists[i] = self.mergeTwoLists(lists[i], lists[i+1])
+            del lists[i+1]
+            i += 1
+
+    return lists[0]
+        
             
 
