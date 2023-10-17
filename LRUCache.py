@@ -1,3 +1,7 @@
+#146. LRU Cache. class has a hashmap with key as the key and node(key, value) as the value. Class also has doubly linked list with left and 
+#right pointers representing LRU and MRU. When a key is accessed, it is removed from the list and inserted at the end (MRU). 
+#When a key is inserted, if the cache is bigger than capacity limitation, the LRU is removed from the list and hashmap.
+
 class Node:
 
     def __init__(self, key, val):
