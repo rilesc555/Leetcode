@@ -17,3 +17,11 @@ class InvertTree:
         self.invertTree(root.right)
         
         return root
+
+# 104 max depth of binary tree. Very easy
+class MaxDepth:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
