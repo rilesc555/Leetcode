@@ -46,7 +46,7 @@ def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
 
 
 #143. reorder list. Find middle using slow and fast pointers, reverse second half, then merge
-def reorderList(self, head: Optional[ListNode]) -> None:
+def reorderList(self, head: ListNode) -> None:
     """
     Do not return anything, modify head in-place instead.
     """
@@ -113,7 +113,7 @@ def copyRandomList(self, head: Node) -> Node:
         return oldToCopy[head]
 
 # 2. add two numbers. Add each digit, keep track of remainder. Return new list with dummy head. Easy Stuff
-def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         cur1 = l1
         cur2 = l2
         result = dummy = ListNode()
@@ -138,7 +138,7 @@ def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optio
         return dummy.next
 
 # 141. Linked List Cycle. 2 pointers, one moves 2 at a time, one moves 1 at a time. If they meet, there is a cycle. If fast pointer reaches end, there is no cycle
-def hasCycle(self, head: Optional[ListNode]) -> bool:
+def hasCycle(self, head: ListNode) -> bool:
         s = f = head
         while f:
             s = s.next
@@ -188,6 +188,40 @@ def mergeKLists(self, lists: list[ListNode]) -> ListNode:
             i += 1
 
     return lists[0]
+
+
+
+# 25. Reverse nodes in k-group. Very tricky. Have to keep track of where previous segment ends, and update after every cycle
+
+def getKth(self, node: ListNode, k: int):
+    while node and k > 0:
+        node = node.next
+        k -= 1
+    return node    
+
+def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+    dummy = ListNode(None, head)
+    groupPrev = dummy
+
+    while True:
+        kth = self.getKth(groupPrev, k)
+        if not kth:
+            break
+        groupNext = kth.next
+
+        cur, prev = groupPrev.next, kth.next
+        while cur != groupNext:
+            tmp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = tmp
+
+        tmp = groupPrev.next
+        groupPrev.next = kth
+        groupPrev = tmp 
+    
+    return dummy.next
+
         
             
 
