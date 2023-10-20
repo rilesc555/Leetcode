@@ -44,3 +44,27 @@ class Diameter:
 
         dfs(root)
         return res[0]
+    
+
+# 110. is binary tree balanced. For each node, find and return if balanced and height. 
+# Condition for node being balanced is that each sub node is balanced and difference between height of subnodes is less than 2
+class isBalanced:
+    def isBalanced(self, root: TreeNode) -> bool:
+
+        def dfs(node) -> [bool, int]:
+            if not node:
+                return [True, 0]
+            
+            left, right = dfs(node.left), dfs(node.right)
+
+            balanced = (abs(left[1] - right[1]) <= 1 and left[0] and right[0])
+
+            height = 1 + max(left[1], right[1])
+
+            return [balanced, height]
+
+        
+        answer = dfs(root)
+        
+        return answer[0]
+        
