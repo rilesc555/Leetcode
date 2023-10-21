@@ -103,3 +103,18 @@ class isSubTree:
         else:
             return self.isSameTree(l.left, r.left) and self.isSameTree(l.right, r.right)
         
+
+#235. Lowest common ancestor of binary search tree. Was banging my head against it until I realized it was
+#binary SEARCH tree. Made things real easy.
+class LowestCommonAncestor:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if p == root or q == root:
+            return root
+        elif p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        elif p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        else:
+            return root
+
+        
