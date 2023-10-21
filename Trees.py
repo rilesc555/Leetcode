@@ -68,3 +68,16 @@ class isBalanced:
         
         return answer[0]
         
+
+# 100 Find if two trees are same. DFS. Checks if each value is same and if both left branches and both right branches are same
+class isSame:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        elif not p or not q or p.val != q.val:
+            return False
+        elif self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right):
+            return True
+        else:
+            return False
+        
