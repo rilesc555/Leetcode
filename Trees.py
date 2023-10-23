@@ -1,3 +1,5 @@
+import collections
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -116,5 +118,58 @@ class LowestCommonAncestor:
             return self.lowestCommonAncestor(root.right, p, q)
         else:
             return root
+        
+
+#102 Binary Tree Level Order Traversal. First BFS problem. Very easy
+class LevelOrder:
+    def levelOrder(self, root: TreeNode) -> list[list[int]]:
+        answer = []
+
+        q = collections.deque()
+        q.append(root)
+
+        while q:
+            level = []
+            qLen = len(q)
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    level.append(node.val)
+                    if node.left:
+                        q.append(node.left)
+                    if node.right:
+                        q.append(node.right)
+            if level:
+                answer.append(level)
+        
+        return answer
+    
+#199 Binary tree right side view. Do the same as Binary tree level order traversal, but only return the last value of each level
+class RightSideView:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        answer = []
+
+        q = collections.deque()
+        q.append(root)
+
+        while q:
+            qLen = len(q)
+
+            level = []
+
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    level.append(node.val)
+                    if node.left:
+                        q.append(node.left)
+                    if node.right:
+                        q.append(node.right)
+
+                
+            answer.append(level)
+        
+        return [level[-1] for level in answer if level]
+
 
         
