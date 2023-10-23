@@ -144,7 +144,7 @@ class LevelOrder:
         
         return answer
     
-#199 Binary tree right side view. Do the same as Binary tree level order traversal, but only return the last value of each level
+#199 Binary tree right side view. Do the same BFS as Binary tree level order traversal, but only return the last value of each level
 class RightSideView:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         answer = []
@@ -166,10 +166,33 @@ class RightSideView:
                     if node.right:
                         q.append(node.right)
 
-                
-            answer.append(level)
+            if level:
+                answer.append(level[-1])
         
-        return [level[-1] for level in answer if level]
+        return answer
+    
+
+# 1448. Count nodes in tree which don't have any parent nodes greater than them. Dfs, passing along max value to each recursive call
+class GoodNodes:
+    def goodNodes(self, root: TreeNode) -> int:
+        
+        def dfs(node: TreeNode, maxValue: int) -> int:
+            if not node:
+                return 0
+            
+            res = 0
+            if node.val >= maxValue:
+                res += 1
+            
+            maxValue = max(maxValue, node.val)
+            
+            res += dfs(node.left, maxValue)
+            res += dfs(node.right, maxValue)
+
+            return res
+
+        return dfs(root, root.val)
+    
 
 
         
