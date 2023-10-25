@@ -36,11 +36,11 @@ class Diameter:
 
         def dfs(root):
             if not root:
-                return -1
+                return 0
             left = dfs(root.left)
             right = dfs(root.right)
 
-            res[0] = max(res[0], 2 + left + right)
+            res[0] = max(res[0], left + right)
 
             return 1 + max(left, right)
 
@@ -253,5 +253,31 @@ class BuildTree:
 
         return expand()
 
+
+#124 Binary Tree Max path sum. Freaking proud of this one. compute max path if branching at node and update result if greater
+# return greatest path down from node
+class MaxPathSum:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        #biggest path found so far
+        res = [float("-inf")]
+
+        #returns biggest vertical path (without branching). If left + right + root > res, update res
+        def dfs(node):
+            if not node: 
+                return 0
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+            
+            sum = left + right + node.val
+            maxLeg = node.val + max(left, right, 0)
+
+            res[0] = max(res[0], sum, maxLeg)
+
+            return maxLeg
+
+        dfs(root)
+
+        return res[0]
 
         
