@@ -193,6 +193,65 @@ class GoodNodes:
 
         return dfs(root, root.val)
     
+#230. Find kth smallest element in BST. Go left, add nodes to stack until null, then pop stack, increment and try to
+# go down right tree. Every time you go  back up increase the count. When count == k return value
+class KthSmallest:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        count = 0
+
+        cur = root
+        stack = []
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+
+            cur = stack.pop()
+            count += 1
+
+            if k == count:
+                return cur.val
+
+            cur = cur.right
+
+# 98 Validate search tree. DFS keeping tracking of max and min values
+class IsValidBST:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    
+        def DFS(node, min, max):
+            if not node:
+                return True
+
+            if not (node.val < max and node.val > min):
+                return False
+
+            return (DFS(node.left, min, node.val) and 
+            DFS(node.right, node.val, max))
+
+        return DFS(root, float("-inf"), float("inf"))
+
+    
+
+
+# 105 build a binary tree from a preorder and an inorder list. First of preorder is head, use hashmap of inorder to find index of head in inorder
+# to find two sides, do recursion. Pretty slick if I do say so myself
+# Preorder: Root, L, R
+# In order: L, Root, R
+class BuildTree:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        
+        def expand(l, r): 
+            if l <= r:
+
+                root = TreeNode(preorder.pop(0))
+                mid = hashMap[root.val]
+                root.left = expand(l, mid - 1)
+                root.right = expand(mid + 1, r)
+                return root
+    
+        hashMap = {v:i for i,v in enumerate(inorder)}
+
+        return expand()
 
 
         
